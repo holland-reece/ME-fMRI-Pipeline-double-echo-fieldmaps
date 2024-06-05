@@ -1,5 +1,5 @@
 # Single-Echo fMRI Preprocessing Pipeline with Magnitude/Phase or Complex Fieldmaps
-## (Branch of Liston-Laboratory-MultiEchofMRI-Pipeline)
+## (Fork of Liston-Laboratory-MultiEchofMRI-Pipeline)
 Repository for "Rapid precision mapping of individuals using multi-echo fMRI" ; Lynch et al. 2020 Cell Reports.
 
 This pipeline was designed to process longitudinal multi-echo fMRI data. It calls scripts developed by the Human Connectome Project (for preprocessing of high resolution anatomical images and the generation of cortical surfaces) and Tedana (for signal-decay based denoising). 
