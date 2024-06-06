@@ -145,6 +145,11 @@ cp -rf "$Subdir"/anat/T1w/"$Subject" "$Subdir"/anat/T1w/freesurfer
 # define the effective echo spacing;
 EchoSpacing=$(cat $Subdir/func/xfms/rest/EffectiveEchoSpacing.txt) 
 
+# use BBRegister (BBR) to fine-tune the existing co-registration & output FSL style transformation matrix
+# CHECK: is this registering to T1w or MNI?
+# CHECK: inputs/outputs and purpose of tkregister2
+# Outputs: AvgSBref2acpc_EpiReg+BBR.nii.gz (functional NIFTI registered to prev reg?), --dat AvgSBref2acpc_EpiReg+BBR.dat; Input: --mov AvgSBref2acpc_EpiReg.nii.gz (?)
+
 # register average SBref image to T1-weighted anatomical image using FSL's EpiReg (correct for spatial distortions using average field map); 
 "$MEDIR"/res0urces/epi_reg_dof --dof="$DOF" --epi="$Subdir"/func/xfms/rest/AvgSBref.nii.gz --t1="$Subdir"/anat/T1w/T1w_acpc_dc_restore.nii.gz --t1brain="$Subdir"/anat/T1w/T1w_acpc_dc_restore_brain.nii.gz --out="$Subdir"/func/xfms/rest/AvgSBref2acpc_EpiReg --fmap="$Subdir"/func/field_maps/Avg_FM_rads_acpc.nii.gz --fmapmag="$Subdir"/func/field_maps/Avg_FM_mag_acpc.nii.gz --fmapmagbrain="$Subdir"/func/field_maps/Avg_FM_mag_acpc_brain.nii.gz --echospacing="$EchoSpacing" --wmseg="$Subdir"/anat/T1w/"$Subject"/mri/white.nii.gz --nofmapreg --pedir=-y   # note: need to manually set --pedir
 
