@@ -96,6 +96,16 @@ do
     cp -r "$Subdir"/func/unprocessed/field_maps/FM_rads_"$ThisFM".nii.gz "$WDIR"/FM_rads_"$ThisFM".nii.gz
     cp -r "$Subdir"/func/unprocessed/field_maps/FM_mag_"$ThisFM".nii.gz "$WDIR"/FM_mag_"$ThisFM".nii.gz
 
+    # NOTE: this topup command and the following steps are from Chuck's original code and are not run on
+    # the EVO fieldmaps because they are already in magnitude/phase format. These steps are to get Chuck's
+    # AP-PA fieldmaps into magnitude/phase (i.e. 'rads') format.
+	# # prepare field map files using TOPUP; 
+	# topup --imain="$4"/AP_PA_"$5".nii.gz --datain="$2"/func/field_maps/acqparams.txt \
+	# --iout="$4"/FM_mag_"$5".nii.gz --fout="$4"/FM_rads_"$5".nii.gz --config=b02b0.cnf > /dev/null 2>&1  
+	# fslmaths "$4"/FM_rads_"$5".nii.gz -mul 6.283 "$4"/FM_rads_"$5".nii.gz > /dev/null 2>&1 # convert to radians 
+	# fslmaths "$4"/FM_mag_"$5".nii.gz -Tmean "$4"/FM_mag_"$5".nii.gz > /dev/null 2>&1 # magnitude image 
+	# bet "$4"/FM_mag_"$5".nii.gz "$4"/FM_mag_brain_"$5".nii.gz -f 0.35 -R > /dev/null 2>&1 # temporary bet image
+
     # temporary bet image (for EVO, this only needs to be run for UW participants)
     #cp -r "$Subdir"/func/unprocessed/field_maps/FM_mag_brain_"$ThisFM".nii.gz "$WDIR"/FM_mag_brain_"$ThisFM".nii.gz # added for EVO NKI data (already ran bet)
     bet "$WDIR"/FM_mag_"$ThisFM".nii.gz "$WDIR"/FM_mag_brain_"$ThisFM".nii.gz -f 0.6 -B  
